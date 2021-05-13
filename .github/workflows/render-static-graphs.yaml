@@ -33,6 +33,7 @@ jobs:
         run: |
           R -e 'install.packages("renv")'
           R -e 'renv::restore()'
+          R -e 'install.packages("tidyverse", "ggplot2", "ggridges", "lubridate", "covidregionaldata", "roll", "scales", "patchwork", )'
 
       - name: Render graph files
         run: |
@@ -43,5 +44,5 @@ jobs:
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit ${RMD_PATH[*]/.Rmd/.md} -m 'Re-build static graphs' || echo "No changes to commit"
+          git commit ${extra/.png} -m 'Re-build static graphs' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
