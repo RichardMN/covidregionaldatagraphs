@@ -14,3 +14,18 @@ Two charts imitating those prepared by the OSP in [their analyses](https://osp.s
 ![](extra/Lithuania-waterfall-case-counts.png)
 
 ![](extra/Lithuania-waterfall-positivity.png)
+
+
+Ridgeline charts showing the incidence in regions of the country. These
+emphasise that the first wave was barely a ripple compared with the 
+second wave, and that the incidence in the larger cities (particularly
+Vilnius) has been quite separate from other municipalities.
+
+![](extra/Lithuania-ridgeline-top-municipalities.png)
+
+![](extra/Lithuania-ridgeline-all-counties.png)
+
+The Lithuanian word for "municipality" is *savivaldybė*. "m. sav." is short
+for "city municipality" and "r. sav." means "regional municipality"; Vilnius 
+and Kaunas both have suburban municipalities which are distinguished in these
+charts only by the "m." and "r."
