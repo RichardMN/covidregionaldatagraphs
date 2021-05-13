@@ -3,6 +3,7 @@ library(ggplot2)
 library(ggridges)
 library(roll)
 library(scales)
+library(forcats)
 #library(patchwork)
 library(dplyr)
 
@@ -19,6 +20,13 @@ lt_municipality_data <- get_regional_data(country="Lithuania",
                                           level = 2,
                                           localise = TRUE,
                                           all_osp_fields = TRUE)
+
+lt_last_date <- format(max(lt_municipality_data$date), "%b %d, %Y")
+
+caption_text <- paste0(
+  "Richard Martin-Nielsen | Data: Official Statistics Portal, ",
+  lt_last_date
+  )
 
 # Make summary table ----
 
@@ -64,7 +72,7 @@ narrowed_regional_incidence %>%
   labs( x= "Date", y="Region / Incidence",
         title="Regional COVID-19 incidence in Lithuania",
         subtitle = "Top ten municipalities by maximum daily incidence",
-        caption="Richard Martin-Nielsen | Data: Official Statistics Portal") +
+        caption=caption_text) +
   theme(axis.text.y = element_text(size=8),
         #axis.text.y.left = element_blank(),
         axis.title.y.left = element_blank())
@@ -102,8 +110,61 @@ lt_county_data %>%
   labs( x= "Date", y="Region / Incidence",
         title="Regional COVID-19 incidence in Lithuania",
         subtitle = "All counties",
-        caption="Richard Martin-Nielsen | Data: Official Statistics Portal") +
+        caption=caption_text) +
   theme(axis.text.y = element_text(size=8),
         #axis.text.y.left = element_blank(),
         axis.title.y.left = element_blank())
 ggsave("extra/Lithuania-ridgeline-all-counties.png")
+
+# Waterfall chart case counts ----
+lt_counts<- lt_municipality_data %>%
+  select(date,cases_new,municipality) %>%
+  mutate(weekly_mean_cases=roll_mean(cases_new,7)) %>%
+  filter(date>"2020-10-01") %>%
+  group_by(date,
+           group=fct_rev(cut(weekly_mean_cases,
+                             breaks=c(-1,0,5,10,15,20,Inf),
+                             labels=c("0", "0-5", "5-10", "10-15", "15-20","20+"),
+                             include.lowest=TRUE))) %>%
+  summarise(count=n())
+
+lt_counts %>%
+  ggplot() +
+  geom_col(mapping=aes(x=date,y=count,fill=group),width=1) +
+  labs(x="Date",
+       y="Number of municipalities",
+       fill="Case count",
+       title="Municipality case counts in Lithuania",
+       subtitle="7 day average counts of new cases",
+       caption=caption_text) +
+  theme_minimal() +
+  scale_fill_brewer(palette="Blues",direction=1)
+
+ggsave("extra/Lithuania-waterfall-case-counts.png")
+
+# Waterfall chart municipality test positivity ----
+lt_positivity<- lt_municipality_data %>%
+  filter(date>"2020-10-01") %>%
+  select(date,dgn_prc_day,municipality) %>%
+  mutate(weekly_mean_positivity=roll_mean(dgn_prc_day,7)) %>%
+  group_by(date,
+           group=fct_rev(cut(dgn_prc_day,
+                             breaks=c(-1,0,5,10,15,20,Inf),
+                             labels=c("0%", "0-5%", "5-10%", "10-15%", "15-20%","20%+"),
+                             include.lowest=TRUE))) %>%
+  summarise(count=n())
+
+lt_positivity %>%
+  ggplot() +
+  geom_col(mapping=aes(x=date,y=count,fill=group),width=1) +
+  labs(x="Date",
+       y="Number of municipalities",
+       fill="Test positivity",
+       title="Municipality test positivity in Lithuania",
+       subtitle="7 day average test positivity",
+       caption=caption_text) +
+  theme_minimal() +
+  scale_fill_brewer(palette="Oranges",direction=1)
+
+ggsave("extra/Lithuania-waterfall-positivity.png")
+

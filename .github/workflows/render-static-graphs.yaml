@@ -33,7 +33,7 @@ jobs:
         run: |
           R -e 'install.packages("renv")'
           R -e 'renv::restore()'
-          R -e 'install.packages(c("dplyr", "ggplot2", "ggridges", "covidregionaldata", "roll", "scales"))'
+          R -e 'install.packages(c("dplyr", "ggplot2", "ggridges", "covidregionaldata", "roll", "scales", "forcats"))'
 
       - name: Render graph files
         run: |
