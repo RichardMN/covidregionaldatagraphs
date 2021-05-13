@@ -36,8 +36,8 @@ jobs:
 
       - name: Render graph files
         run: |
-          R_PATH=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '[.]graphs.R$'))
-          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) source(f)' ${R_PATH[*]}
+          GRAPH_PATH=("R/ridgeline_graphs.R")
+          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) source(f)' ${GRAPH_PATH[*]}
 
       - name: Commit results
         run: |
