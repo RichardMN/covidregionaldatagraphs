@@ -1,19 +1,11 @@
-library(tidyverse)
-library(ggplot2)
-#library(gghighlight)
-#library(ggpubr)
-#library(ggforce)
-library(ggridges)
-#library(EpiEstim)
-library(lubridate)
-# if (packageVersion("covidregionaldata") > "0.8.5") {
-#   devtools::install_github("epiforecasts/covidregionaldata", ref="dev")
-# }
 library(covidregionaldata)
+library(ggplot2)
+library(ggridges)
 library(roll)
 library(scales)
 library(patchwork)
-#library(gganimate)
+library(dplyr)
+
 # Load data ----
 
 lt_county_data <- get_regional_data(country="Lithuania",
