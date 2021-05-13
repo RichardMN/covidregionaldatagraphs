@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos
+    runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
