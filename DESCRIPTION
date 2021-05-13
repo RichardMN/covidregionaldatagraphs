@@ -16,4 +16,13 @@ Imports:
   ggplot2,
   covidregionaldata,
   gganimate,
-  tidyverse
+  curl,
+  httr,
+  remotes,
+  dplyr,
+  tidyr,
+  ggplot2,
+  ggridges,
+  roll,
+  scales,
+  forcats

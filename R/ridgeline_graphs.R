@@ -6,6 +6,7 @@ library(scales)
 library(forcats)
 #library(patchwork)
 library(dplyr)
+library(tidyr)
 
 # Load data ----
 
@@ -19,7 +20,15 @@ lt_municipality_data <- get_regional_data(country="Lithuania",
                                           totals=FALSE,
                                           level = 2,
                                           localise = TRUE,
-                                          all_osp_fields = TRUE)
+                                          all_osp_fields = TRUE,
+                                          national_data = TRUE)
+
+lt_national_data <- lt_municipality_data %>%
+  filter(municipality == "Lietuva") %>%
+  select(-municipality, -iso_3166_2_municipality, -county, -iso_3166_2)
+
+lt_municipality_data <- lt_municipality_data %>%
+  filter(municipality != "Lietuva")
 
 lt_last_date <- format(max(lt_municipality_data$date), "%b %d, %Y")
 
@@ -42,6 +51,12 @@ narrowed_regions <- pull(region_summaries %>%slice_max(max_i, n=10) %>%select(re
 narrowed_regional_incidence <- lt_municipality_data %>%
   #filter(date < as_date("2021-01-04")) %>%
   filter(municipality %in% narrowed_regions)
+
+# Set graphing defaults ----
+
+theme_set(
+  theme_minimal()
+)
 
 # Plot ridgeline incidence for top 10 municipalities ----
 
@@ -66,7 +81,6 @@ narrowed_regional_incidence %>%
                      name="Region"
   )+
   scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b") +
-  theme_minimal() +
   theme_ridges() +
   theme(legend.position = "none") +
   labs( x= "Date", y="Region / Incidence",
@@ -74,7 +88,6 @@ narrowed_regional_incidence %>%
         subtitle = "Top ten municipalities by maximum daily incidence",
         caption=caption_text) +
   theme(axis.text.y = element_text(size=8),
-        #axis.text.y.left = element_blank(),
         axis.title.y.left = element_blank())
 
 ggsave("extra/Lithuania-ridgeline-top-municipalities.png")
@@ -104,7 +117,6 @@ lt_county_data %>%
                      name="Region"
   )+
   scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b") +
-  theme_minimal() +
   theme_ridges() +
   theme(legend.position = "none") +
   labs( x= "Date", y="Region / Incidence",
@@ -112,7 +124,6 @@ lt_county_data %>%
         subtitle = "All counties",
         caption=caption_text) +
   theme(axis.text.y = element_text(size=8),
-        #axis.text.y.left = element_blank(),
         axis.title.y.left = element_blank())
 ggsave("extra/Lithuania-ridgeline-all-counties.png")
 
@@ -137,7 +148,6 @@ lt_counts %>%
        title="Municipality case counts in Lithuania",
        subtitle="7 day average counts of new cases",
        caption=caption_text) +
-  theme_minimal() +
   scale_fill_brewer(palette="Blues",direction=1)
 
 ggsave("extra/Lithuania-waterfall-case-counts.png")
@@ -163,8 +173,47 @@ lt_positivity %>%
        title="Municipality test positivity in Lithuania",
        subtitle="7 day average test positivity",
        caption=caption_text) +
-  theme_minimal() +
   scale_fill_brewer(palette="Oranges",direction=1)
 
 ggsave("extra/Lithuania-waterfall-positivity.png")
 
+# Compare death definition counts ----
+
+lt_national_data %>%
+  ggplot(aes(x=date)) +
+  geom_col(aes(y=daily_deaths_def3), color="grey70",width=1) +
+  geom_col(aes(y=daily_deaths_def2), color="grey50", width=1) +
+  geom_col(aes(y=daily_deaths_def1), color="black",width=1) +
+  labs(x="Date", y="Deaths",
+       title="Different counts of deaths due to COVID in Lithuania",
+       subtitle = "Daily deaths 'by', 'with' or 'after' COVID",
+       caption=caption_text)
+
+ggsave("extra/Lithuania-death-counts-comparison.png")
+
+# Acceleration calculations - national ----
+
+lt_national_data %>%
+  # put rolling 7 day average in here
+  mutate(weekly_mean_cases=roll_mean(cases_new,7),
+         weekly_mean_positivity=roll_mean(dgn_prc_day,7)) %>%
+  mutate(cases_accel=((weekly_mean_cases-lag(weekly_mean_cases))/abs(lag(weekly_mean_cases))),
+         test_accel= ((weekly_mean_positivity-lag(weekly_mean_positivity))/abs(lag(weekly_mean_positivity)))) %>%
+  filter(date>"2020-09-01") %>%
+  select(date, cases_accel, test_accel) %>%
+  pivot_longer(cols = ends_with("_accel"),
+               values_to = "accel",
+               names_to = "type", names_pattern="(.*)_accel") %>%
+  mutate(type=if_else(type=="test", "test positivity", type)) %>%
+  ggplot(aes(x=date, y=accel, colour=type)) +
+  geom_line() +
+  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
+  #scale_y_continuous(trans = modulus_trans(-0.5), labels=label_percent()) +
+  scale_y_continuous( labels=label_percent()) +
+  geom_hline(yintercept=0, size=0.2) +
+  labs(x="Date", y="Acceleration",
+       title="Acceleration of the COVID-19 pandemic in Lithuania",
+       subtitle = "% change in 7-day average of incidence or test positivity",
+       caption=caption_text)
+
+ggsave("extra/Lithuania-acceleration-national.png")
