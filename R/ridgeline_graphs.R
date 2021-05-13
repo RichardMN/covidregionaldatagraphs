@@ -3,7 +3,7 @@ library(ggplot2)
 library(ggridges)
 library(roll)
 library(scales)
-library(patchwork)
+#library(patchwork)
 library(dplyr)
 
 # Load data ----
