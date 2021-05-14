@@ -13,6 +13,11 @@ This code uses the
 to download data for various countries at a subregional level. The workflow
 is currently set to install the github version of the package.
 
+There is now a
+[generic version of the graph generation code](extras/Generic_static_graphs.R).
+This should generate graphs where possible for any country where 
+`covidregionaldata` makes the regional data available.
+
 ## Overall comparisons of municipalities
 
 Two charts imitating those prepared by the OSP in [their analyses](https://osp.stat.gov.lt/documents/10180/8420714/1_COVID-19_situacijos_apzvalga_210215.pdf). 
