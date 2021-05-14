@@ -105,7 +105,7 @@ if (!is.na(dataset_details$level_2_region)) {
     ) +
     scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
     theme_ridges() +
-    theme(plot.caption = element_text(size = 8))
+    theme(plot.caption = element_text(size = 8)) +
     theme(legend.position = "none") +
     labs(
       x = "Date", y = "Region / Incidence",
@@ -156,7 +156,7 @@ level_1_data %>%
   ) +
   scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
   theme_ridges() +
-  theme(plot.caption = element_text(size = 8))
+  theme(plot.caption = element_text(size = 8)) +
   theme(legend.position = "none") +
   labs(
     x = "Date", y = "Region / Incidence",
