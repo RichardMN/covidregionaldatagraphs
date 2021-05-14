@@ -39,7 +39,7 @@ jobs:
 
       - name: Render graph files
         run: |
-          GRAPH_PATH=("R/ridgeline_graphs.R")
+          GRAPH_PATH=("extra/Lithuania_static_graphs.R")
           Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) source(f)' ${GRAPH_PATH[*]}
 
       - name: Commit results

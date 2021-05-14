@@ -90,7 +90,7 @@ narrowed_regional_incidence %>%
   theme(axis.text.y = element_text(size=8),
         axis.title.y.left = element_blank())
 
-ggsave("extra/Lithuania-ridgeline-top-municipalities.png")
+ggsave("extra/Lithuania-ridgeline-top-municipalities.png", width=6, height=4, units="in")
 
 # Plot ridgeline incidence for all 10 counties ----
 
@@ -125,7 +125,7 @@ lt_county_data %>%
         caption=caption_text) +
   theme(axis.text.y = element_text(size=8),
         axis.title.y.left = element_blank())
-ggsave("extra/Lithuania-ridgeline-all-counties.png")
+ggsave("extra/Lithuania-ridgeline-all-counties.png", width=6, height=4, units="in")
 
 # Waterfall chart case counts ----
 lt_counts<- lt_municipality_data %>%
@@ -150,7 +150,7 @@ lt_counts %>%
        caption=caption_text) +
   scale_fill_brewer(palette="Blues",direction=1)
 
-ggsave("extra/Lithuania-waterfall-case-counts.png")
+ggsave("extra/Lithuania-waterfall-case-counts.png", width=6, height=4, units="in")
 
 # Waterfall chart municipality test positivity ----
 lt_positivity<- lt_municipality_data %>%
@@ -175,7 +175,7 @@ lt_positivity %>%
        caption=caption_text) +
   scale_fill_brewer(palette="Oranges",direction=1)
 
-ggsave("extra/Lithuania-waterfall-positivity.png")
+ggsave("extra/Lithuania-waterfall-positivity.png", width=6, height=4, units="in")
 
 # Compare death definition counts ----
 
@@ -189,7 +189,7 @@ lt_national_data %>%
        subtitle = "Daily deaths 'by', 'with' or 'after' COVID",
        caption=caption_text)
 
-ggsave("extra/Lithuania-death-counts-comparison.png")
+ggsave("extra/Lithuania-death-counts-comparison.png", width=6, height=4, units="in")
 
 # Acceleration calculations - national ----
 
@@ -216,4 +216,4 @@ lt_national_data %>%
        subtitle = "% change in 7-day average of incidence or test positivity",
        caption=caption_text)
 
-ggsave("extra/Lithuania-acceleration-national.png")
+ggsave("extra/Lithuania-acceleration-national.png", width=6, height=4, units="in")
