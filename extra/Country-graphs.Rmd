@@ -1,3 +1,20 @@
+---
+title: "Sub-national COVID graphs"
+output: html_document
+params:
+  country:
+    label: "Region:"
+    value: France
+    input: select
+    choices: ["Belgium", "Brazil", "Canada", "Colombia", "Cuba", "France", "Germany", "India", "Italy", "Lithuania", "Mexico", "South Africa", "United Kingdom", "United States of America"]
+  prepared_by:
+    label: "Prepared by:"
+    value: "Richard Martin-Nielsen"
+    input: text
+---
+
+```{r setup, include=FALSE}
+
 library(covidregionaldata)
 library(ggplot2)
 library(ggridges)
@@ -11,7 +28,7 @@ library(tidyr)
 # Load data ----
 
 if (!exists("country")) {
-  country <- "France"
+  country <- params$country
 }
 
 dataset_details <- get_available_datasets("regional") %>% filter(grepl(country, origin))
@@ -34,35 +51,15 @@ if (!is.na(dataset_details$level_2_region)) {
 
 national_data <- level_1_data %>%
   group_by(date) %>%
-  summarise(across(where(is.double), sum))
+  summarise(across(where(is.double), sum), .groups = "drop_last")
 
 last_date <- format(max(level_1_data$date), "%B %d, %Y")
 
 caption_text <- paste0(
-  "Richard Martin-Nielsen | Data sourced through covidregionaldata, ",
+  params$prepared_by, 
+  " | Data sourced through covidregionaldata, ",
   last_date
 )
-
-# Make summary table ----
-
-if (!is.na(dataset_details$level_2_region)) {
-  region_summaries <-
-    level_2_data %>%
-    group_by(level_2_region) %>%
-    summarise(
-      min_i = min(cases_new, na.rm = TRUE),
-      max_i = max(cases_new, na.rm = TRUE),
-      median_i = median(cases_new, na.rm = TRUE),
-      mean_i = mean(cases_new, na.rm = TRUE)
-    ) %>%
-    rename(region = level_2_region)
-
-  narrowed_regions <- pull(region_summaries %>% slice_max(max_i, n = 10) %>% select(region))
-
-  narrowed_regional_incidence <- level_2_data %>%
-    # filter(date < as_date("2021-01-04")) %>%
-    filter(level_2_region %in% narrowed_regions)
-}
 
 # Set graphing defaults ----
 
@@ -70,59 +67,11 @@ theme_set(
   theme_minimal() +
     theme(plot.caption = element_text(size = 8))
 )
+```
 
-# Plot ridgeline incidence for top 10 municipalities ----
+# Plot ridgeline incidence for all level 1 regions
 
-if (!is.na(dataset_details$level_2_region)) {
-  intercity_gap <- max(level_2_data$cases_new, na.rm = TRUE) / 2
-  intercity_gap <- round(intercity_gap, -floor(log10(intercity_gap)))
-
-  ridgeline_labels <- narrowed_regional_incidence %>%
-    mutate(y = -as.numeric(factor(level_2_region)) * intercity_gap, region = level_2_region) %>%
-    select(region, y) %>%
-    unique()
-
-  narrowed_regional_incidence %>%
-    ggplot(aes(
-      x = date, y = -as.numeric(factor(level_2_region)) * intercity_gap,
-      height = cases_new, group = level_2_region
-    )) + # y=as.numeric(level_2_region)*250
-    geom_ridgeline(alpha = 0.5, aes(fill = level_2_region), size = 0.25) +
-    scale_y_continuous(
-      breaks = ridgeline_labels$y,
-      labels = ridgeline_labels$region,
-      sec.axis =
-        sec_axis(~ . + 10,
-          name = "Daily incidence (confirmed cases)",
-          labels = rep(c(intercity_gap / 2, "0"), 10),
-          breaks = seq(
-            from = -intercity_gap / 2,
-            to = -intercity_gap * 10,
-            by = -intercity_gap / 2
-          )
-        ),
-      name = "Region"
-    ) +
-    scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
-    theme_ridges() +
-    theme(plot.caption = element_text(size = 8)) +
-    theme(legend.position = "none") +
-    labs(
-      x = "Date", y = "Region / Incidence",
-      title = paste0("Regional COVID-19 incidence in ", country),
-      subtitle = "Top ten level 2 regions by maximum daily incidence",
-      caption = caption_text
-    ) +
-    theme(
-      axis.text.y = element_text(size = 8),
-      axis.title.y.left = element_blank()
-    )
-
-  ggsave(paste0("extra/", country, "-ridgeline-top-level-2-regions.png"), width = 6, height = 4, units = "in")
-}
-
-# Plot ridgeline incidence for all level 1 regions ----
-
+```{r ridgeline-all-level-1-graphs, echo=FALSE}
 intercity_gap <- max(level_1_data$cases_new, na.rm = TRUE) / 2
 intercity_gap <- round(intercity_gap, -floor(log10(intercity_gap)))
 
@@ -168,10 +117,164 @@ level_1_data %>%
     axis.text.y = element_text(size = 8),
     axis.title.y.left = element_blank()
   )
-ggsave(paste0("extra/", country, "-ridgeline-all-level-1-regions.png"), width = 6, height = 4, units = "in")
+#ggsave(paste0("extra/", country, "-ridgeline-all-level-1-regions.png"), width = 6, height = 4, units = "in")
+```
 
-# Waterfall chart case counts - level 1 ----
+```{r ridgeline-top-ten-level-1-header, results="asis", echo=FALSE}
+if (length(unique(level_1_data$level_1_region))>11 ) {
+  cat("# Plot ridgeline incidence for top 10 level 1 regions")
+}
+```
+```{r ridgeline-top-ten-level-1-graphs, echo=FALSE}
+if (length(unique(level_1_data$level_1_region))>11 ) {
 
+  # Make summary table for level 1 ----
+
+  region_summaries <-
+    level_1_data %>%
+    group_by(level_1_region) %>%
+    summarise(
+      min_i = min(cases_new, na.rm = TRUE),
+      max_i = max(cases_new, na.rm = TRUE),
+      median_i = median(cases_new, na.rm = TRUE),
+      mean_i = mean(cases_new, na.rm = TRUE),
+      .groups = "drop_last"
+    ) %>%
+    rename(region = level_1_region)
+
+  narrowed_regions <- pull(region_summaries %>% slice_max(max_i, n = 10) %>% select(region))
+
+  narrowed_regional_incidence <- level_1_data %>%
+    # filter(date < as_date("2021-01-04")) %>%
+    filter(level_1_region %in% narrowed_regions)
+  
+  # Calculate intercity_gap for level 1 ----
+  intercity_gap <- max(level_1_data$cases_new, na.rm = TRUE) / 2
+  intercity_gap <- round(intercity_gap, -floor(log10(intercity_gap)))
+
+  ridgeline_labels <- narrowed_regional_incidence %>%
+    mutate(y = -as.numeric(factor(level_1_region)) * intercity_gap, region = level_1_region) %>%
+    select(region, y) %>%
+    unique()
+
+  narrowed_regional_incidence %>%
+    ggplot(aes(
+      x = date, y = -as.numeric(factor(level_1_region)) * intercity_gap,
+      height = cases_new, group = level_1_region
+    )) + # y=as.numeric(level_2_region)*250
+    geom_ridgeline(alpha = 0.5, aes(fill = level_1_region), size = 0.25) +
+    scale_y_continuous(
+      breaks = ridgeline_labels$y,
+      labels = ridgeline_labels$region,
+      sec.axis =
+        sec_axis(~ . + 10,
+          name = "Daily incidence (confirmed cases)",
+          labels = rep(c(intercity_gap / 2, "0"), 10),
+          breaks = seq(
+            from = -intercity_gap / 2,
+            to = -intercity_gap * 10,
+            by = -intercity_gap / 2
+          )
+        ),
+      name = "Region"
+    ) +
+    scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    theme_ridges() +
+    theme(plot.caption = element_text(size = 8)) +
+    theme(legend.position = "none") +
+    labs(
+      x = "Date", y = "Region / Incidence",
+      title = paste0("Regional COVID-19 incidence in ", country),
+      subtitle = "Top ten level 1 regions by maximum daily incidence",
+      caption = caption_text
+    ) +
+    theme(
+      axis.text.y = element_text(size = 8),
+      axis.title.y.left = element_blank()
+    )
+
+  #ggsave(paste0("extra/", country, "-ridgeline-top-level-2-regions.png"), width = 6, height = 4, units = "in")
+}
+```
+
+```{r ridgeline-top-ten-level-2-header, results="asis", echo=FALSE}
+if (!is.na(dataset_details$level_2_region)) {
+  cat("# Plot ridgeline incidence for top 10 level 2 regions")
+}
+```
+
+```{r ridgeline-top-ten-level-2-graphs, echo=FALSE}
+if (!is.na(dataset_details$level_2_region)) {
+  # Make summary table for level 2 ----
+
+  region_summaries <-
+    level_2_data %>%
+    group_by(level_2_region) %>%
+    summarise(
+      min_i = min(cases_new, na.rm = TRUE),
+      max_i = max(cases_new, na.rm = TRUE),
+      median_i = median(cases_new, na.rm = TRUE),
+      mean_i = mean(cases_new, na.rm = TRUE),
+      .groups = "drop_last"
+    ) %>%
+    rename(region = level_2_region)
+
+  narrowed_regions <- pull(region_summaries %>% slice_max(max_i, n = 10) %>% select(region))
+
+  narrowed_regional_incidence <- level_2_data %>%
+    # filter(date < as_date("2021-01-04")) %>%
+    filter(level_2_region %in% narrowed_regions)
+
+  # Calculate intercity gap for level 2 ----
+  intercity_gap <- max(level_2_data$cases_new, na.rm = TRUE) / 2
+  intercity_gap <- round(intercity_gap, -floor(log10(intercity_gap)))
+
+  ridgeline_labels <- narrowed_regional_incidence %>%
+    mutate(y = -as.numeric(factor(level_2_region)) * intercity_gap, region = level_2_region) %>%
+    select(region, y) %>%
+    unique()
+
+  narrowed_regional_incidence %>%
+    ggplot(aes(
+      x = date, y = -as.numeric(factor(level_2_region)) * intercity_gap,
+      height = cases_new, group = level_2_region
+    )) + # y=as.numeric(level_2_region)*250
+    geom_ridgeline(alpha = 0.5, aes(fill = level_2_region), size = 0.25) +
+    scale_y_continuous(
+      breaks = ridgeline_labels$y,
+      labels = ridgeline_labels$region,
+      sec.axis =
+        sec_axis(~ . + 10,
+          name = "Daily incidence (confirmed cases)",
+          labels = rep(c(intercity_gap / 2, "0"), 10),
+          breaks = seq(
+            from = -intercity_gap / 2,
+            to = -intercity_gap * 10,
+            by = -intercity_gap / 2
+          )
+        ),
+      name = "Region"
+    ) +
+    scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    theme_ridges() +
+    theme(plot.caption = element_text(size = 8)) +
+    theme(legend.position = "none") +
+    labs(
+      x = "Date", y = "Region / Incidence",
+      title = paste0("Regional COVID-19 incidence in ", country),
+      subtitle = "Top ten level 2 regions by maximum daily incidence",
+      caption = caption_text
+    ) +
+    theme(
+      axis.text.y = element_text(size = 8),
+      axis.title.y.left = element_blank()
+    )
+
+  #ggsave(paste0("extra/", country, "-ridgeline-top-level-2-regions.png"), width = 6, height = 4, units = "in")
+}
+```
+
+```{r waterfall-case-count-level-1, echo=FALSE}
 # Attempt to calculate a "natural" bucket scale for the waterfalls
 bucket_scale <- median(level_1_data$cases_new, na.rm = TRUE) * 2
 if (bucket_scale < 20) {
@@ -202,7 +305,7 @@ level_1_counts <- level_1_data %>%
       include.lowest = TRUE
     ))
   ) %>%
-  summarise(count = n())
+  summarise(count = n(), .groups = "drop_last")
 
 level_1_counts %>%
   ggplot() +
@@ -210,7 +313,7 @@ level_1_counts %>%
   scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
   labs(
     x = "Date",
-    y = "Number of level 1 regions",
+    y = paste0("Number of level 1 regions - ", dataset_details$level_1_region),
     fill = "Case count",
     title = paste0(
       tools::toTitleCase(dataset_details$level_1_region),
@@ -221,9 +324,17 @@ level_1_counts %>%
   ) +
   scale_fill_brewer(palette = "Blues", direction = 1)
 
-ggsave(paste0("extra/", country, "-waterfall-case-counts-level-1.png"), width = 6, height = 4, units = "in")
+#ggsave(paste0("extra/", country, "-waterfall-case-counts-level-1.png"), width = 6, height = 4, units = "in")
+```
 
-# Waterfall chart case counts - level 2 ----
+```{r waterfall-case-count-level-2-header, results="asis", echo=FALSE}
+if (!is.na(dataset_details$level_2_region)) {
+  cat("# Waterfall chart case counts - level 2")
+}
+```
+
+```{r waterfall-case-count-level-2-graph, echo=FALSE}
+
 if (!is.na(dataset_details$level_2_region)) {
   # Attempt to calculate a "natural" bucket scale for the waterfalls
   bucket_scale <- median(level_2_data$cases_new, na.rm = TRUE) * 2
@@ -255,7 +366,7 @@ if (!is.na(dataset_details$level_2_region)) {
         include.lowest = TRUE
       ))
     ) %>%
-    summarise(count = n())
+    summarise(count = n(), .groups = "drop_last")
 
   level_2_counts %>%
     ggplot() +
@@ -263,7 +374,7 @@ if (!is.na(dataset_details$level_2_region)) {
     scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
     labs(
       x = "Date",
-      y = "Number of level 2 regions",
+      y = paste0("Number of level 2 regions - ", dataset_details$level_2_region),
       fill = "Case count",
       title = paste0(
         tools::toTitleCase(dataset_details$level_2_region),
@@ -274,11 +385,19 @@ if (!is.na(dataset_details$level_2_region)) {
     ) +
     scale_fill_brewer(palette = "Blues", direction = 1)
 
-  ggsave(paste0("extra/", country, "-waterfall-case-counts-level-2.png"), width = 6, height = 4, units = "in")
+  #ggsave(paste0("extra/", country, "-waterfall-case-counts-level-2.png"), width = 6, height = 4, units = "in")
 }
+```
 
-# Waterfall chart level_1_region test positivity ----
-if (!is.na(unique(level_1_data$tested_new))) {
+
+```{r waterfall-positivity-level-1-header, results="asis", echo=FALSE}
+if (length(unique(level_1_data$tested_new))>1 && !is.na(unique(level_1_data$tested_new)[1])) {
+  cat("# Waterfall chart level_1_region test positivity")
+}
+```
+
+```{r waterfall-positivity-level-1-graph, echo=FALSE}
+if (length(unique(level_1_data$tested_new))>1 && !is.na(unique(level_1_data$tested_new)[1])) {
   level_1_positivity <- level_1_data %>%
     filter(date > "2020-10-01") %>%
     # Calculate a proxy for test positivity: cases / tests
@@ -295,7 +414,7 @@ if (!is.na(unique(level_1_data$tested_new))) {
         include.lowest = TRUE
       ))
     ) %>%
-    summarise(count = n())
+    summarise(count = n(), .groups = "drop_last")
 
   level_1_positivity %>%
     ggplot() +
@@ -303,21 +422,26 @@ if (!is.na(unique(level_1_data$tested_new))) {
     scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
     labs(
       x = "Date",
-      y = "Number of level 2 regions",
+      y = paste0("Number of level 1 regions - ", dataset_details$level_1_region),
       fill = "Test positivity",
-      title = paste0("Level 2 region test positivity in ", country),
+      title = paste0("Level 1 region test positivity in ", country),
       subtitle = "7 day average test positivity",
       caption = caption_text
     ) +
     scale_fill_brewer(palette = "Oranges", direction = 1)
 
-  ggsave(paste0("extra/", country, "-waterfall-positivity.png"), width = 6, height = 4, units = "in")
+  #ggsave(paste0("extra/", country, "-waterfall-positivity.png"), width = 6, height = 4, units = "in")
 }
+```
 
+```{r waterfall-positivity-level-2-header, results="asis", echo=FALSE}
+if (!is.na(dataset_details$level_2_region) && length(unique(level_2_data$tested_new))>1 && !is.na(unique(level_2_data$tested_new)[1])) { 
+  cat("# Waterfall chart level_2_region test positivity")
+}
+```
 
-# Waterfall chart level_2_region test positivity ----
-
-if (!is.na(dataset_details$level_2_region) && !is.na(unique(level_2_data$tested_new))) {
+```{r waterfall-positivity-level-2-graph, echo=FALSE}
+if (!is.na(dataset_details$level_2_region) && length(unique(level_2_data$tested_new))>1 && !is.na(unique(level_2_data$tested_new)[1]) ) {
   level_2_positivity <- level_2_data %>%
     filter(date > "2020-10-01") %>%
     # Calculate a proxy for test positivity: cases / tests
@@ -333,7 +457,7 @@ if (!is.na(dataset_details$level_2_region) && !is.na(unique(level_2_data$tested_
         include.lowest = TRUE
       ))
     ) %>%
-    summarise(count = n())
+    summarise(count = n(), .groups = "drop_last")
 
   level_2_positivity %>%
     ggplot() +
@@ -341,7 +465,7 @@ if (!is.na(dataset_details$level_2_region) && !is.na(unique(level_2_data$tested_
     scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
     labs(
       x = "Date",
-      y = "Number of level 2 regions",
+      y = paste0("Number of level 2 regions - ", dataset_details$level_2_region),
       fill = "Test positivity",
       title = paste0("Level 2 region test positivity in ", country),
       subtitle = "7 day average test positivity",
@@ -349,12 +473,21 @@ if (!is.na(dataset_details$level_2_region) && !is.na(unique(level_2_data$tested_
     ) +
     scale_fill_brewer(palette = "Oranges", direction = 1)
 
-  ggsave(paste0("extra/", country, "-waterfall-positivity.png"), width = 6, height = 4, units = "in")
+  #ggsave(paste0("extra/", country, "-waterfall-positivity.png"), width = 6, height = 4, units = "in")
 }
+```
 
-# Acceleration calculations - national ----
 
-if (!is.na(unique(national_data$tested_new))) {
+```{r acceleration-national-header, results="asis", echo=FALSE}
+if (length(unique(national_data$tested_new))>1 && !is.na(unique(national_data$tested_new)[1])) {
+  cat("# Acceleration calculations - national\n\n",
+      "This accelaration calculation is made based on a proxy for test positivity calculated by comparing the number of new cases each day with the number of tests taken each day.\n\n"
+      )
+}
+```
+
+```{r acceleration-national-graphs, echo=FALSE}
+if (length(unique(national_data$tested_new))>1 && !is.na(unique(national_data$tested_new)[1])) {
   national_data %>%
     arrange(date) %>%
     # Calculate a proxy for test positivity: cases / tests
@@ -389,5 +522,6 @@ if (!is.na(unique(national_data$tested_new))) {
       caption = caption_text
     )
 
-  ggsave(paste0("extra/", country, "-acceleration-national.png"), width = 6, height = 4, units = "in")
+  #ggsave(paste0("extra/", country, "-acceleration-national.png"), width = 6, height = 4, units = "in")
 }
+```
