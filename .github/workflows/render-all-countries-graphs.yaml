@@ -33,7 +33,7 @@ jobs:
           R -e 'install.packages("renv")'
           R -e 'renv::restore()'
           R -e 'install.packages(c("curl", "httr"))'
-          R -e 'install.packages(c("remotes", "dplyr", "tidyr", "ggplot2", "ggridges", "roll", "scales", "forcats", "tools"))'
+          R -e 'install.packages(c("remotes", "dplyr", "tidyr", "ggplot2", "ggridges", "roll", "scales", "forcats", "tools", "rmarkdown"))'
           R -e 'remotes::install_github("epiforecasts/covidregionaldata")'
 
       - name: Render graph files
