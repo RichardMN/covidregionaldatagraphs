@@ -7,21 +7,21 @@ provides sub-regional data.
 
 This currently includes:
 
-* [France](extra/Report France.md)
-* [Belgium](extra/Report Belgium.md)
-* [Brazil](extra/Report Brazil.md)
-* [Canada](extra/Report Canada.md)
-* [Colombia](extra/Report Colombia.md)
-* [Cuba](extra/Report Cuba.md)
-* [France](extra/Report France.md)
-* [Germany](extra/Report Germany.md)
-* [India](extra/Report India.md)
-* [Italy](extra/Report Italy.md)
-* [Lithuania](extra/Report Lithuania.md)
-* [Mexico](extra/Report Mexico.md)
-* [Netherlands](extra/Report Netherlands.md)
-* [South](extra/Report South.md)
-* [Switzerland](extra/Report Switzerland.md)
+* [France](extra/Report%20France.md)
+* [Belgium](extra/Report%20Belgium.md)
+* [Brazil](extra/Report%20Brazil.md)
+* [Canada](extra/Report%20Canada.md)
+* [Colombia](extra/Report%20Colombia.md)
+* [Cuba](extra/Report%20Cuba.md)
+* [France](extra/Report%20France.md)
+* [Germany](extra/Report%20Germany.md)
+* [India](extra/Report%20India.md)
+* [Italy](extra/Report%20Italy.md)
+* [Lithuania](extra/Report%20Lithuania.md)
+* [Mexico](extra/Report%20Mexico.md)
+* [Netherlands](extra/Report%20Netherlands.md)
+* [South](extra/Report%20South.md)
+* [Switzerland](extra/Report%20Switzerland.md)
 
 This code uses the
 [`covidregionaldata`](http://epiforecasts.io/covidregionaldata) package
