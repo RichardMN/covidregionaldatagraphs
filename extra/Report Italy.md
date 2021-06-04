@@ -9,6 +9,8 @@ Sub-national COVID graphs
 
 ![](Report%20Italy_files/figure-gfm/ridgeline-top-ten-level-1-graphs-1.png)<!-- -->
 
+# Waterfall chart case counts - level 1
+
 ![](Report%20Italy_files/figure-gfm/waterfall-case-count-level-1-1.png)<!-- -->
 
 # Waterfall chart level\_1\_region test positivity
