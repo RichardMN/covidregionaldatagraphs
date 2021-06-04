@@ -1,6 +1,7 @@
 ---
 title: "Sub-national COVID graphs"
-output: html_document
+#output: html_document
+output: github_document
 params:
   country:
     label: "Region:"
