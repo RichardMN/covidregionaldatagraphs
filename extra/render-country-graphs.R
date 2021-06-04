@@ -20,7 +20,7 @@ render_graphs = function(country) {
   )
 }
 
-countries %<>%
+countries <- countries %>%
   filter(!class %in% c("Brazil", "Mexico", "USA", "UK") )
 
 start_using_memoise()
