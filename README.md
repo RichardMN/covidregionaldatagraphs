@@ -20,7 +20,7 @@ This currently includes:
 * [Lithuania](extra/Report%20Lithuania.md)
 * [Mexico](extra/Report%20Mexico.md)
 * [Netherlands](extra/Report%20Netherlands.md)
-* [South](extra/Report%20South.md)
+* [South Africa](extra/Report%20South%20Africa.md)
 * [Switzerland](extra/Report%20Switzerland.md)
 
 This code uses the
