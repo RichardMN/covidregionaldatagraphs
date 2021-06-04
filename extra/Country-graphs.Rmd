@@ -126,7 +126,7 @@ if (length(unique(level_1_data$level_1_region))>11 ) {
   cat("# Plot ridgeline incidence for top 10 level 1 regions")
 }
 ```
-```{r ridgeline-top-ten-level-1-graphs, echo=FALSE}
+```{r ridgeline-top-ten-level-1-graphs, echo=FALSE, warning=FALSE}
 if (length(unique(level_1_data$level_1_region))>11 ) {
 
   # Make summary table for level 1 ----
@@ -204,7 +204,7 @@ if (!is.na(dataset_details$level_2_region)) {
 }
 ```
 
-```{r ridgeline-top-ten-level-2-graphs, echo=FALSE}
+```{r ridgeline-top-ten-level-2-graphs, echo=FALSE, warning=FALSE}
 if (!is.na(dataset_details$level_2_region)) {
   # Make summary table for level 2 ----
 
@@ -274,6 +274,8 @@ if (!is.na(dataset_details$level_2_region)) {
   #ggsave(paste0("extra/", country, "-ridgeline-top-level-2-regions.png"), width = 6, height = 4, units = "in")
 }
 ```
+
+# Waterfall chart case counts - level 1
 
 ```{r waterfall-case-count-level-1, echo=FALSE}
 # Attempt to calculate a "natural" bucket scale for the waterfalls
@@ -482,7 +484,7 @@ if (!is.na(dataset_details$level_2_region) && length(unique(level_2_data$tested_
 ```{r acceleration-national-header, results="asis", echo=FALSE}
 if (length(unique(national_data$tested_new))>1 && !is.na(unique(national_data$tested_new)[1])) {
   cat("# Acceleration calculations - national\n\n",
-      "This accelaration calculation is made based on a proxy for test positivity calculated by comparing the number of new cases each day with the number of tests taken each day.\n\n"
+      "This acceleration calculation is made based on a proxy for test positivity calculated by comparing the number of new cases each day with the number of tests taken each day.\n\n"
       )
 }
 ```

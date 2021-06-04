@@ -17,7 +17,7 @@ Sub-national COVID graphs
 
 # Acceleration calculations - national
 
-This accelaration calculation is made based on a proxy for test
+This acceleration calculation is made based on a proxy for test
 positivity calculated by comparing the number of new cases each day with
 the number of tests taken each day.
 

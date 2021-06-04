@@ -1,6 +1,6 @@
 
 library(covidregionaldata)
-library(magrittr)
+library(dplyr)
 library(purrr)
 countries <- get_available_datasets(type = "regional")
 
@@ -14,14 +14,16 @@ render_graphs = function(country) {
     ),
     params = list(
       country = country,
-      prepared_by = "github.com/RichardMN/lithuaniacovidgraphs"
+      prepared_by = "github.com/RichardMN/covidregionaldatagraphs"
     ),
     output_file = paste0("Report ", country, ".md")
   )
 }
 
-countries %<>%
-  filter(!class %in% c("Brazil", "Mexico", "UK", "USA") )
+# countries %<>%
+#   filter(!class %in% c("Brazil", "Mexico", "USA") )
+
+start_using_memoise()
 
 purrr::map(countries$origin, render_graphs )
 

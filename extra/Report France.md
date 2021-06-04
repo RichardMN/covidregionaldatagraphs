@@ -11,10 +11,6 @@ Sub-national COVID graphs
 
 # Plot ridgeline incidence for top 10 level 2 regions
 
-    ## Warning in min(cases_new, na.rm = TRUE): no non-missing arguments to min; returning Inf
-
-    ## Warning in max(cases_new, na.rm = TRUE): no non-missing arguments to max; returning -Inf
-
 ![](Report%20France_files/figure-gfm/ridgeline-top-ten-level-2-graphs-1.png)<!-- -->
 
 ![](Report%20France_files/figure-gfm/waterfall-case-count-level-1-1.png)<!-- -->
@@ -29,7 +25,7 @@ Sub-national COVID graphs
 
 # Acceleration calculations - national
 
-This accelaration calculation is made based on a proxy for test
+This acceleration calculation is made based on a proxy for test
 positivity calculated by comparing the number of new cases each day with
 the number of tests taken each day.
 
