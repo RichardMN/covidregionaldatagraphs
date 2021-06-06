@@ -1,8 +1,8 @@
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '**.R'
+#  push:
+#    paths:
+#      - '**.R'
 
 jobs:
   build:
