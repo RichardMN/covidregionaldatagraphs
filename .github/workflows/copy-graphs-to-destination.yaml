@@ -12,12 +12,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Pushes test file
+      - name: Copy files to destination
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: 'extra/output'
+          source_file: 'extra/output/COVID-19 regional graphs - Italy.md'
           destination_repo: 'RichardMN/test-dest-repo'
           destination_folder: 'docs/covidregionaldatagraphs'
           user_email: 'example@email.com'
