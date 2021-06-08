@@ -1,7 +1,8 @@
 ---
-title: "Sub-national COVID graphs"
 #output: html_document
-output: github_document
+output:
+  github_document:
+    html_preview: FALSE
 params:
   country:
     label: "Region:"
@@ -12,6 +13,7 @@ params:
     label: "Prepared by:"
     value: "Richard Martin-Nielsen"
     input: text
+title: "Sub-national COVID graphs for `r params$country`"
 ---
 
 ```{r setup, include=FALSE}
@@ -25,6 +27,12 @@ library(forcats)
 # library(patchwork)
 library(dplyr)
 library(tidyr)
+
+# Set-up output ----
+# Figure path on disk = base.dir + fig.path
+# Figure URL online = base.url + fig.path
+knitr::opts_knit$set(base.dir = stringr::str_c(here::here(), "/extra/output/"), base.url = "/covidregionaldatagraphs/") # project root folder
+knitr::opts_chunk$set(fig.path = stringr::str_c(paste0(paste("images", country, sep="/")), "-"))
 
 # Load data ----
 
@@ -395,7 +403,8 @@ if (!is.na(dataset_details$level_2_region)) {
 
 ```{r waterfall-positivity-level-1-header, results="asis", echo=FALSE}
 if (length(unique(level_1_data$tested_new))>1 && !is.na(unique(level_1_data$tested_new)[1])) {
-  cat("# Waterfall chart level_1_region test positivity")
+  cat("# Waterfall chart level 1 region test positivity\n\n",
+      "This proxy for test positivity is calculated by comparing the number of new cases each day with the number of tests taken each day.")
 }
 ```
 
@@ -439,7 +448,8 @@ if (length(unique(level_1_data$tested_new))>1 && !is.na(unique(level_1_data$test
 
 ```{r waterfall-positivity-level-2-header, results="asis", echo=FALSE}
 if (!is.na(dataset_details$level_2_region) && length(unique(level_2_data$tested_new))>1 && !is.na(unique(level_2_data$tested_new)[1])) { 
-  cat("# Waterfall chart level_2_region test positivity")
+  cat("# Waterfall chart level 2 region test positivity\n\n",
+      "This proxy for test positivity is calculated by comparing the number of new cases each day with the number of tests taken each day.")
 }
 ```
 
