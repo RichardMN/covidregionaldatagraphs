@@ -12,14 +12,14 @@ jobs:
         with:
           fetch-depth: 0
 
-    - name: Pushes test file
-      uses: dmnemec/copy_file_to_another_repo_action@main
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      with:
-        source_file: 'extra/output'
-        destination_repo: 'dmnemec/release-test'
-        destination_folder: 'docs/covidregionaldatagraphs'
-        #user_email: 'example@email.com'
-        user_name: 'RichardMN'
-        commit_message: 'Transfer graphs from source repo'
+      - name: Pushes test file
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source_file: 'extra/output'
+          destination_repo: 'dmnemec/release-test'
+          destination_folder: 'docs/covidregionaldatagraphs'
+          #user_email: 'example@email.com'
+          user_name: 'RichardMN'
+          commit_message: 'Transfer graphs from source repo'
