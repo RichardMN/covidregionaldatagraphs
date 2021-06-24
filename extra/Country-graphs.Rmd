@@ -24,7 +24,6 @@ library(ggridges)
 library(roll)
 library(scales)
 library(forcats)
-# library(patchwork)
 library(dplyr)
 library(tidyr)
 
@@ -80,6 +79,11 @@ theme_set(
 
 # Plot ridgeline incidence for all level 1 regions
 
+Ridgeline graphs allow for comparison of the incidence in different
+regions side by side. These are not *per capita* calculations but 
+just the daily incidence. There is no smoothing, so weekly variations
+and gaps in testing or reporting due to weekends or holidays are visible.
+
 ```{r ridgeline-all-level-1-graphs, echo=FALSE}
 intercity_gap <- max(level_1_data$cases_new, na.rm = TRUE) / 2
 intercity_gap <- round(intercity_gap, -floor(log10(intercity_gap)))
@@ -126,12 +130,15 @@ level_1_data %>%
     axis.text.y = element_text(size = 8),
     axis.title.y.left = element_blank()
   )
-#ggsave(paste0("extra/", country, "-ridgeline-all-level-1-regions.png"), width = 6, height = 4, units = "in")
+
 ```
 
 ```{r ridgeline-top-ten-level-1-header, results="asis", echo=FALSE}
 if (length(unique(level_1_data$level_1_region))>11 ) {
-  cat("# Plot ridgeline incidence for top 10 level 1 regions")
+  cat(
+    "# Plot ridgeline incidence for top 10 level 1 regions\n\n",
+    "Where there are many level 1 regions, the top 10 regions are displayed.\n"
+  )
 }
 ```
 ```{r ridgeline-top-ten-level-1-graphs, echo=FALSE, warning=FALSE}
@@ -202,13 +209,13 @@ if (length(unique(level_1_data$level_1_region))>11 ) {
       axis.title.y.left = element_blank()
     )
 
-  #ggsave(paste0("extra/", country, "-ridgeline-top-level-2-regions.png"), width = 6, height = 4, units = "in")
 }
 ```
 
 ```{r ridgeline-top-ten-level-2-header, results="asis", echo=FALSE}
 if (!is.na(dataset_details$level_2_region)) {
-  cat("# Plot ridgeline incidence for top 10 level 2 regions")
+  cat("# Plot ridgeline incidence for top 10 level 2 regions\n\n",
+      "The top 10 level 2 regions are shown.\n")
 }
 ```
 
@@ -279,9 +286,15 @@ if (!is.na(dataset_details$level_2_region)) {
       axis.title.y.left = element_blank()
     )
 
-  #ggsave(paste0("extra/", country, "-ridgeline-top-level-2-regions.png"), width = 6, height = 4, units = "in")
 }
 ```
+
+The following charts are a form of aggregated heatmap. They are a stacked
+column display of the number of regions for each country with average
+weekly incidence falling into certain ranges. This gives an overview of
+how concentrated a shift in the data may be, but masks variation as to which
+regions are being more or less impacted from week to week.
+
 
 # Waterfall chart case counts - level 1
 
@@ -335,12 +348,14 @@ level_1_counts %>%
   ) +
   scale_fill_brewer(palette = "Blues", direction = 1)
 
-#ggsave(paste0("extra/", country, "-waterfall-case-counts-level-1.png"), width = 6, height = 4, units = "in")
 ```
 
 ```{r waterfall-case-count-level-2-header, results="asis", echo=FALSE}
 if (!is.na(dataset_details$level_2_region)) {
-  cat("# Waterfall chart case counts - level 2")
+  cat(
+    "# Waterfall chart case counts - level 2\n\n",
+    "Plotting these charts for level 2 regions typically shows smoother curves.\n"
+)
 }
 ```
 
@@ -396,7 +411,7 @@ if (!is.na(dataset_details$level_2_region)) {
     ) +
     scale_fill_brewer(palette = "Blues", direction = 1)
 
-  #ggsave(paste0("extra/", country, "-waterfall-case-counts-level-2.png"), width = 6, height = 4, units = "in")
+
 }
 ```
 
@@ -442,7 +457,6 @@ if (length(unique(level_1_data$tested_new))>1 && !is.na(unique(level_1_data$test
     ) +
     scale_fill_brewer(palette = "Oranges", direction = 1)
 
-  #ggsave(paste0("extra/", country, "-waterfall-positivity.png"), width = 6, height = 4, units = "in")
 }
 ```
 
@@ -486,7 +500,6 @@ if (!is.na(dataset_details$level_2_region) && length(unique(level_2_data$tested_
     ) +
     scale_fill_brewer(palette = "Oranges", direction = 1)
 
-  #ggsave(paste0("extra/", country, "-waterfall-positivity.png"), width = 6, height = 4, units = "in")
 }
 ```
 
@@ -534,7 +547,5 @@ if (length(unique(national_data$tested_new))>1 && !is.na(unique(national_data$te
       subtitle = "% change in 7-day average of incidence or test positivity",
       caption = caption_text
     )
-
-  #ggsave(paste0("extra/", country, "-acceleration-national.png"), width = 6, height = 4, units = "in")
 }
 ```
