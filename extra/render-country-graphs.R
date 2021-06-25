@@ -26,4 +26,4 @@ countries <- countries %>%
 
 start_using_memoise()
 
-purrr::map(countries$origin, render_graphs )
+purrr::map(c(countries$origin, "United States", "United Kingdom"), render_graphs )
