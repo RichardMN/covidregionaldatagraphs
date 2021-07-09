@@ -120,7 +120,7 @@ lt_counts <- lt_municipality_data %>%
       include.lowest = TRUE
     ))
   ) %>%
-  summarise(count = n())
+  summarise(count = n(), .groups = "drop_last")
 
 lt_counts %>%
   ggplot() +
@@ -149,7 +149,7 @@ lt_positivity <- lt_municipality_data %>%
       include.lowest = TRUE
     ))
   ) %>%
-  summarise(count = n())
+  summarise(count = n(), .groups = "drop_last")
 
 lt_positivity %>%
   ggplot() +
@@ -332,9 +332,9 @@ provides a comparison of how the three number of deaths attributed to COVID
 according to each criterion compare.
 
 
-# Compare death definition counts ----
-
 ```{r death-definitions, echo=FALSE}
+# Compare death definition counts
+
 lt_national_data %>%
   ggplot(aes(x = date)) +
   geom_col(aes(y = daily_deaths_def3), color = "grey70", width = 1) +

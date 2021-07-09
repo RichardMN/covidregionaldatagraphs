@@ -20,13 +20,7 @@ for Lithuania](COVID-19%20regional%20graphs%20-%20Lithuania.html)
 Two charts imitating those prepared by the OSP in [their
 analyses](https://osp.stat.gov.lt/documents/10180/8420714/1_COVID-19_situacijos_apzvalga_210215.pdf).
 
-    ## `summarise()` has grouped output by 'date'. You can override using the `.groups` argument.
-
-![](/covidregionaldatagraphs/images/Lithuania-waterfall-charts-1.png)<!-- -->
-
-    ## `summarise()` has grouped output by 'date'. You can override using the `.groups` argument.
-
-![](/covidregionaldatagraphs/images/Lithuania-waterfall-charts-2.png)<!-- -->
+![](/covidregionaldatagraphs/images/Lithuania-waterfall-charts-1.png)<!-- -->![](/covidregionaldatagraphs/images/Lithuania-waterfall-charts-2.png)<!-- -->
 
 ## Incidence charts
 
