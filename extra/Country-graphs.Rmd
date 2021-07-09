@@ -27,6 +27,11 @@ library(forcats)
 library(dplyr)
 library(tidyr)
 
+
+if (!exists("country")) {
+  country <- params$country
+}
+
 # Set-up output ----
 # Figure path on disk = base.dir + fig.path
 # Figure URL online = base.url + fig.path
@@ -34,10 +39,6 @@ knitr::opts_knit$set(base.dir = stringr::str_c(here::here(), "/extra/output/"), 
 knitr::opts_chunk$set(fig.path = stringr::str_c(paste0(paste("images", country, sep="/")), "-"))
 
 # Load data ----
-
-if (!exists("country")) {
-  country <- params$country
-}
 
 dataset_details <- get_available_datasets("regional") %>% filter(grepl(country, origin))
 
@@ -47,6 +48,12 @@ level_1_data <- get_regional_data(
   level = 1,
   localise = FALSE
 )
+
+# Specific code to remove double-counting of England in UK data
+if (country == "United Kingdom") {
+  level_1_data <- level_1_data %>%
+    filter(level_1_region != "England")
+}
 
 if (!is.na(dataset_details$level_2_region)) {
   level_2_data <- get_regional_data(
