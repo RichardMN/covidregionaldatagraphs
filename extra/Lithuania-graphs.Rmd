@@ -107,7 +107,7 @@ to those available in the other
 
 Two charts imitating those prepared by the OSP in [their analyses](https://osp.stat.gov.lt/documents/10180/8420714/1_COVID-19_situacijos_apzvalga_210215.pdf).
 
-```{r waterfall-charts}
+```{r waterfall-charts, echo=FALSE}
 # Waterfall chart case counts ----
 lt_counts <- lt_municipality_data %>%
   select(date, cases_new, municipality) %>%
@@ -175,7 +175,7 @@ emphasise that the first wave was barely a ripple compared with the
 second wave, and that the incidence in the larger cities (particularly
 Vilnius) has been quite separate from other municipalities.
                                                           
-```{r incidence-ridgeline-charts}
+```{r incidence-ridgeline-charts, echo=FALSE}
 # Plot ridgeline incidence for top 10 municipalities ----
 
 intercity_gap <- 400
@@ -286,7 +286,7 @@ are used to smooth out regular weekly variation in the data but are
 necessarily lagging indicators, both when incidence is rising and when
 it is declining.
 
-```{r acceleration-national}
+```{r acceleration-national, echo=FALSE}
 
 # Acceleration calculations - national ----
 
@@ -334,7 +334,7 @@ according to each criterion compare.
 
 # Compare death definition counts ----
 
-```{r death-definitions}
+```{r death-definitions, echo=FALSE}
 lt_national_data %>%
   ggplot(aes(x = date)) +
   geom_col(aes(y = daily_deaths_def3), color = "grey70", width = 1) +
