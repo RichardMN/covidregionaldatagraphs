@@ -7,21 +7,27 @@ provides sub-regional data.
 
 This currently includes:
 
-* [France](extra/Report%20France.md)
-* [Belgium](extra/Report%20Belgium.md)
-* [Brazil](extra/Report%20Brazil.md)
-* [Canada](extra/Report%20Canada.md)
-* [Colombia](extra/Report%20Colombia.md)
-* [Cuba](extra/Report%20Cuba.md)
-* [France](extra/Report%20France.md)
-* [Germany](extra/Report%20Germany.md)
-* [India](extra/Report%20India.md)
-* [Italy](extra/Report%20Italy.md)
-* [Lithuania](extra/Report%20Lithuania.md)
-* [Mexico](extra/Report%20Mexico.md)
-* [Netherlands](extra/Report%20Netherlands.md)
-* [South Africa](extra/Report%20South%20Africa.md)
-* [Switzerland](extra/Report%20Switzerland.md)
+* [France](extra/COVID-19%20regional%20graphs%20-%20France.md)
+* [Belgium](extra/COVID-19%20regional%20graphs%20-%20Belgium.md)
+* [Brazil](extra/COVID-19%20regional%20graphs%20-%20Brazil.md)
+* [Canada](extra/COVID-19%20regional%20graphs%20-%20Canada.md)
+* [Colombia](extra/COVID-19%20regional%20graphs%20-%20Colombia.md)
+* [Cuba](extra/COVID-19%20regional%20graphs%20-%20Cuba.md)
+* [France](extra/COVID-19%20regional%20graphs%20-%20France.md)
+* [Germany](extra/COVID-19%20regional%20graphs%20-%20Germany.md)
+* [India](extra/COVID-19%20regional%20graphs%20-%20India.md)
+* [Italy](extra/COVID-19%20regional%20graphs%20-%20Italy.md)
+* [Lithuania](extra/COVID-19%20regional%20graphs%20-%20Lithuania.md)
+* [Mexico](extra/COVID-19%20regional%20graphs%20-%20Mexico.md)
+* [Netherlands](extra/COVID-19%20regional%20graphs%20-%20Netherlands.md)
+* [South Africa](extra/COVID-19%20regional%20graphs%20-%20South%20Africa.md)
+* [Switzerland](extra/COVID-19%20regional%20graphs%20-%20Switzerland.md)
+* [United Kingdom](extra/COVID-19%20regional%20graphs%20-%20United%20Kingdom.md)
+* [United States](extra/COVID-19%20regional%20graphs%20-%20United%20States.md)
+
+There is also a specific page for Lithuania:
+
+* [Lithuania (with additional graphs)](extra/COVID-19%20regional%20graphs%20-%20Lithuania-specific.md)
 
 This code uses the
 [`covidregionaldata`](http://epiforecasts.io/covidregionaldata) package
@@ -33,11 +39,6 @@ In addition to the R code, github actions have been developed to update the
 charts daily, though this is not yet functional (and may not be used because
 of the limitations of running actions on a a free account).
 
-This package also includes a
-[generic version of the graph generation code](extra/Generic_static_graphs.R).
-This should generate graphs where possible for any country where 
-`covidregionaldata` makes the regional data available.
-
-Finally, for those using who like rmarkdown templated reports, there is a
+This is done with a
 [parameter-ised Rmarkdown report](extra/Country-graphs.Rmd) which lets
 you select the country and enter your name. (Use `knit with parameters`.)

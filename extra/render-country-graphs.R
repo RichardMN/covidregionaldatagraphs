@@ -39,7 +39,6 @@ rmarkdown::render(
     self_contained = FALSE
   ),
   params = list(
-    country = "Lithuania",
     prepared_by = "github.com/RichardMN/covidregionaldatagraphs"
   ),
   output_file = paste0("COVID-19 regional graphs - Lithuania-specific.md")
