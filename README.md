@@ -7,27 +7,27 @@ provides sub-regional data.
 
 This currently includes:
 
-* [France](extra/COVID-19%20regional%20graphs%20-%20France.md)
-* [Belgium](extra/COVID-19%20regional%20graphs%20-%20Belgium.md)
-* [Brazil](extra/COVID-19%20regional%20graphs%20-%20Brazil.md)
-* [Canada](extra/COVID-19%20regional%20graphs%20-%20Canada.md)
-* [Colombia](extra/COVID-19%20regional%20graphs%20-%20Colombia.md)
-* [Cuba](extra/COVID-19%20regional%20graphs%20-%20Cuba.md)
-* [France](extra/COVID-19%20regional%20graphs%20-%20France.md)
-* [Germany](extra/COVID-19%20regional%20graphs%20-%20Germany.md)
-* [India](extra/COVID-19%20regional%20graphs%20-%20India.md)
-* [Italy](extra/COVID-19%20regional%20graphs%20-%20Italy.md)
-* [Lithuania](extra/COVID-19%20regional%20graphs%20-%20Lithuania.md)
-* [Mexico](extra/COVID-19%20regional%20graphs%20-%20Mexico.md)
-* [Netherlands](extra/COVID-19%20regional%20graphs%20-%20Netherlands.md)
-* [South Africa](extra/COVID-19%20regional%20graphs%20-%20South%20Africa.md)
-* [Switzerland](extra/COVID-19%20regional%20graphs%20-%20Switzerland.md)
-* [United Kingdom](extra/COVID-19%20regional%20graphs%20-%20United%20Kingdom.md)
-* [United States](extra/COVID-19%20regional%20graphs%20-%20United%20States.md)
+* [France](extra/output/COVID-19%20regional%20graphs%20-%20France.md)
+* [Belgium](extra/output/COVID-19%20regional%20graphs%20-%20Belgium.md)
+* [Brazil](extra/output/COVID-19%20regional%20graphs%20-%20Brazil.md)
+* [Canada](extra/output/COVID-19%20regional%20graphs%20-%20Canada.md)
+* [Colombia](extra/output/COVID-19%20regional%20graphs%20-%20Colombia.md)
+* [Cuba](extra/output/COVID-19%20regional%20graphs%20-%20Cuba.md)
+* [France](extra/output/COVID-19%20regional%20graphs%20-%20France.md)
+* [Germany](extra/output/COVID-19%20regional%20graphs%20-%20Germany.md)
+* [India](extra/output/COVID-19%20regional%20graphs%20-%20India.md)
+* [Italy](extra/output/COVID-19%20regional%20graphs%20-%20Italy.md)
+* [Lithuania](extra/output/COVID-19%20regional%20graphs%20-%20Lithuania.md)
+* [Mexico](extra/output/COVID-19%20regional%20graphs%20-%20Mexico.md)
+* [Netherlands](extra/output/COVID-19%20regional%20graphs%20-%20Netherlands.md)
+* [South Africa](extra/output/COVID-19%20regional%20graphs%20-%20South%20Africa.md)
+* [Switzerland](extra/output/COVID-19%20regional%20graphs%20-%20Switzerland.md)
+* [United Kingdom](extra/output/COVID-19%20regional%20graphs%20-%20United%20Kingdom.md)
+* [United States](extra/output/COVID-19%20regional%20graphs%20-%20United%20States.md)
 
 There is also a specific page for Lithuania:
 
-* [Lithuania (with additional graphs)](extra/COVID-19%20regional%20graphs%20-%20Lithuania-specific.md)
+* [Lithuania (with additional graphs)](extra/output/COVID-19%20regional%20graphs%20-%20Lithuania-specific.md)
 
 This code uses the
 [`covidregionaldata`](http://epiforecasts.io/covidregionaldata) package
