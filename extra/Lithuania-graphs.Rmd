@@ -31,6 +31,7 @@ country <- "Lithuania"
 knitr::opts_knit$set(base.dir = stringr::str_c(here::here(), "/extra/output/"), base.url = "/covidregionaldatagraphs/") # project root folder
 knitr::opts_chunk$set(fig.path = stringr::str_c(paste0(paste("images", country, sep="/")), "-"))
 
+dataset_details <- get_available_datasets("regional") %>% filter(grepl(country, origin))
 
 lt_county_data <- get_regional_data(
   country = "Lithuania",
@@ -59,10 +60,13 @@ lt_municipality_data <- lt_municipality_data %>%
 lt_last_date <- format(max(lt_municipality_data$date), "%b %d, %Y")
 
 caption_text <- paste0(
-  "Richard Martin-Nielsen | Data: Official Statistics Portal, ",
-  lt_last_date
+  "Data: ",
+  dataset_details$source_text,
+  " (sourced through covidregionaldata), ",
+  lt_last_date, 
+  "\nPrepared by: ",
+  params$prepared_by
 )
-
 # Make summary table ----
 
 region_summaries <-

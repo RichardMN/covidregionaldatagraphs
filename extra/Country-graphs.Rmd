@@ -71,16 +71,19 @@ national_data <- level_1_data %>%
 last_date <- format(max(level_1_data$date), "%B %d, %Y")
 
 caption_text <- paste0(
-  params$prepared_by, 
-  " | Data sourced through covidregionaldata, ",
-  last_date
+  "Data: ",
+  dataset_details$source_text,
+  " (sourced through covidregionaldata), ",
+  last_date, 
+  "\nPrepared by: ",
+  params$prepared_by
 )
 
 # Set graphing defaults ----
 
 theme_set(
   theme_minimal() +
-    theme(plot.caption = element_text(size = 8))
+    theme(plot.caption = element_text(size = 6))
 )
 ```
 
@@ -125,7 +128,7 @@ level_1_data %>%
   ) +
   scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
   theme_ridges() +
-  theme(plot.caption = element_text(size = 8)) +
+  theme(plot.caption = element_text(size = 6)) +
   theme(legend.position = "none") +
   labs(
     x = "Date", y = "Region / Incidence",
