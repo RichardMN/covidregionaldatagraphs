@@ -54,6 +54,4 @@ to COVID, which roughly correspond to “of”, “with” and “after”. This
 chart provides a comparison of how the three number of deaths attributed
 to COVID according to each criterion compare.
 
-# Compare death definition counts —-
-
 ![](/covidregionaldatagraphs/images/Lithuania-death-definitions-1.png)<!-- -->
