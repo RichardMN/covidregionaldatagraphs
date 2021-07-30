@@ -10,11 +10,6 @@ gaps in testing or reporting due to weekends or holidays are visible.
 
 ![](/covidregionaldatagraphs/images/Germany-ridgeline-all-level-1-graphs-1.png)<!-- -->
 
-# Plot ridgeline incidence for top 10 level 1 regions
-
-Where there are many level 1 regions, the top 10 regions are displayed.
-![](/covidregionaldatagraphs/images/Germany-ridgeline-top-ten-level-1-graphs-1.png)<!-- -->
-
 # Plot ridgeline incidence for top 10 level 2 regions
 
 The top 10 level 2 regions are shown.
