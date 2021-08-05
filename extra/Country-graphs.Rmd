@@ -87,6 +87,20 @@ theme_set(
 )
 ```
 
+# Introduction
+
+```{r intro-credits, results="asis", echo=FALSE}
+
+  cat("These plots are prepared using\n",
+    "[covidregionaldata](https://epiforecasts.io/covidregionaldata) to\n",
+    "download data published by\n[",
+    dataset_details$source_text,
+    "](",
+    dataset_details$source_url,
+    ").\n\n")
+
+```
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different
