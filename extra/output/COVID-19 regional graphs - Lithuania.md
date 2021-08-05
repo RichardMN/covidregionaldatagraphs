@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Lithuania
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [Lithuanian Statistics
+Department](https://hub.arcgis.com/datasets/d49a63c934be4f65a93b6273785a8449_0/about).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

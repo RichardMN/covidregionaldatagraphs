@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Italy
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [Department of Civil Protection,
+Italy](https://github.com/pcm-dpc/COVID-19/blob/master/README_EN.md).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

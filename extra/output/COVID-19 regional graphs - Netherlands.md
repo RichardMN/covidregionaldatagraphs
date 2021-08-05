@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Netherlands
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [National Institute for Public Health and the
+Environment (RIVM), Netherlands](https://data.rivm.nl/covid-19/).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

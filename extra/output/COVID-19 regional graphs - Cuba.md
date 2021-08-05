@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Cuba
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [COVID19 Cuba Data
+team](https://covid19cubadata.github.io/#cuba).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

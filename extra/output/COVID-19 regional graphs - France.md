@@ -1,6 +1,13 @@
 Sub-national COVID graphs for France
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [French Public Open Data
+Platform](https://www.data.gouv.fr/fr/pages/donnees-coronavirus).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

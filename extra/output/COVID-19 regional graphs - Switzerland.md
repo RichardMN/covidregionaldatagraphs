@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Switzerland
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [Open Data, Canton of
+Zurich](https://github.com/openZH/covid_19/).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different
