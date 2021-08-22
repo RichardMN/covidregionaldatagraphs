@@ -1,6 +1,13 @@
 Sub-national COVID graphs for United States
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [New York
+Times](https://github.com/nytimes/covid-19-data).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

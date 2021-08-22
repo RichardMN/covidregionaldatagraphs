@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Germany
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [Robert Koch-Institut
+(RKI)](https://hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/explore).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

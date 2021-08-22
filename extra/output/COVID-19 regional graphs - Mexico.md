@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Mexico
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [Government of
+Mexico](https://datos.covid-19.conacyt.mx).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

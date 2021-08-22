@@ -1,6 +1,13 @@
 Sub-national COVID graphs for South Africa
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [Data Science for Social Impact research
+group, University of Pretoria](https://github.com/dsfsi/covid19za).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different

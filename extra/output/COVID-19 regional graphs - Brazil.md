@@ -1,6 +1,13 @@
 Sub-national COVID graphs for Brazil
 ================
 
+# Introduction
+
+These plots are prepared using
+[covidregionaldata](https://epiforecasts.io/covidregionaldata) to
+download data published by [Wesley
+Cota](https://github.com/wcota/covid19br/blob/master/README.en.md).
+
 # Plot ridgeline incidence for all level 1 regions
 
 Ridgeline graphs allow for comparison of the incidence in different
