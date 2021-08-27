@@ -21,10 +21,8 @@ render_graphs = function(country) {
     )
 }
 
-# Temporarily remove Germany from the list due to problems with
-# data source.
 countries <- countries %>%
-  filter(!class %in% c("USA", "UK", "Germany") )
+  filter(!class %in% c("USA", "UK") )
 
 start_using_memoise()
 
