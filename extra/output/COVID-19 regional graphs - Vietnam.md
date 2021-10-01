@@ -6,7 +6,7 @@ Sub-national COVID graphs for Vietnam
 These plots are prepared using
 [covidregionaldata](https://epiforecasts.io/covidregionaldata) to
 download data published by [Public COVID-19 for Vietnam, curated by
-NCSC’s COVID-19 team](https://covid.ncsc.gov.vn).
+NCSC’s COVID-19 team](https://covid19.ncsc.gov.vn).
 
 # Plot ridgeline incidence for all level 1 regions
 
