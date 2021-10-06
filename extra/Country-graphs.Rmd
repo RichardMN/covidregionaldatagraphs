@@ -8,7 +8,7 @@ params:
     label: "Region:"
     value: France
     input: select
-    choices: ["Belgium", "Brazil", "Canada", "Colombia", "Cuba", "France", "Germany", "India", "Italy", "Lithuania", "Mexico", "South Africa", "Switzerland", "United Kingdom", "United States of America"]
+    choices: ["Belgium", "Brazil", "Canada", "Colombia", "Cuba", "Estonia", "France", "Germany", "India", "Italy", "Lithuania", "Mexico", "South Africa", "Switzerland", "United Kingdom", "USA", "Vietnam"]
   prepared_by:
     label: "Prepared by:"
     value: "Richard Martin-Nielsen"

@@ -26,7 +26,7 @@ countries <- countries %>%
 
 start_using_memoise()
 
-purrr::map(c(countries$origin, "United States", "United Kingdom"), render_graphs )
+purrr::map(c(countries$origin, "USA", "United Kingdom"), render_graphs )
 
 # Render Lithuania-specific page
 rmarkdown::render(
