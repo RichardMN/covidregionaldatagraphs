@@ -8,7 +8,7 @@ render_graphs = function(country) {
     rmarkdown::render(
       "extra/Country-graphs.Rmd",
       output_format = "github_document",
-      output_dir = "extra/output",
+      output_dir = "docs",
       output_options = list(
         output_format = "github_document",
         self_contained = FALSE

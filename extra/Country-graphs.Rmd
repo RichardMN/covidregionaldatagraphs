@@ -35,7 +35,7 @@ if (!exists("country")) {
 # Set-up output ----
 # Figure path on disk = base.dir + fig.path
 # Figure URL online = base.url + fig.path
-knitr::opts_knit$set(base.dir = stringr::str_c(here::here(), "/extra/output/"), base.url = "/covidregionaldatagraphs/") # project root folder
+knitr::opts_knit$set(base.dir = stringr::str_c(here::here(), "/docs/"), base.url = "/covidregionaldatagraphs/") # project root folder
 knitr::opts_chunk$set(fig.path = stringr::str_c(paste0(paste("images", country, sep="/")), "-"))
 
 # Load data ----
