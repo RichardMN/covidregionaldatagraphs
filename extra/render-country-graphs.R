@@ -32,7 +32,7 @@ purrr::map(c(countries$origin, "USA", "United Kingdom"), render_graphs )
 rmarkdown::render(
   "extra/Lithuania-graphs.Rmd",
   output_format = "github_document",
-  output_dir = "extra/output",
+  output_dir = "docs",
   output_options = list(
     output_format = "github_document",
     self_contained = FALSE
