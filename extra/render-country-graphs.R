@@ -25,11 +25,16 @@ render_graphs = function(country) {
 # - USA & UK because the naming breaks, we add them in later
 # - Netherlands because it's currently (late January 2022) broken
 countries <- countries %>%
-  filter(!class %in% c("USA", "UK", "Netherlands") )
+  filter(!class %in% c("USA", "UK") ) #, "Netherlands"
 
 start_using_memoise()
 
-purrr::map(c(countries$origin, "USA", "United Kingdom"), render_graphs )
+country_errors <- purrr::map(c(countries$origin, "USA", "United Kingdom"),
+                             purrr::safely(render_graphs) )
+
+# Be noisy - but don't break - about return values
+
+print(keep(country_errors, ~ !is_null(.x$error)))
 
 # Render Lithuania-specific page
 rmarkdown::render(
