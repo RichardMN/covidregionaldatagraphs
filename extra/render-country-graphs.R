@@ -34,6 +34,10 @@ country_errors <- purrr::map(c(countries$origin, "USA", "United Kingdom"),
 
 # Be noisy - but don't break - about return values
 
+print("*** Successfully generated:")
+print(transpose(keep(country_errors, ~ is_null(.x$error)))[1])
+
+print("*** Errors:")
 print(keep(country_errors, ~ !is_null(.x$error)))
 
 # Render Lithuania-specific page
