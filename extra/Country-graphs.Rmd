@@ -140,7 +140,7 @@ level_1_data %>%
       ),
     name = "Region"
   ) +
-  scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
   theme_ridges() +
   theme(plot.caption = element_text(size = 6)) +
   theme(legend.position = "none") +
@@ -218,7 +218,7 @@ if (length(unique(level_1_data$level_1_region))>11 ) {
         ),
       name = "Region"
     ) +
-    scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
     theme_ridges() +
     theme(plot.caption = element_text(size = 8)) +
     theme(legend.position = "none") +
@@ -295,7 +295,7 @@ if (!is.na(dataset_details$level_2_region)) {
         ),
       name = "Region"
     ) +
-    scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
     theme_ridges() +
     theme(plot.caption = element_text(size = 8)) +
     theme(legend.position = "none") +
@@ -358,7 +358,7 @@ level_1_counts <- level_1_data %>%
 level_1_counts %>%
   ggplot() +
   geom_col(mapping = aes(x = date, y = count, fill = group), width = 1) +
-  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
   labs(
     x = "Date",
     y = paste0("Number of level 1 regions - ", dataset_details$level_1_region),
@@ -421,7 +421,7 @@ if (!is.na(dataset_details$level_2_region)) {
   level_2_counts %>%
     ggplot() +
     geom_col(mapping = aes(x = date, y = count, fill = group), width = 1) +
-    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
     labs(
       x = "Date",
       y = paste0("Number of level 2 regions - ", dataset_details$level_2_region),
@@ -470,7 +470,7 @@ if (length(unique(level_1_data$tested_new))>1 && !is.na(unique(level_1_data$test
   level_1_positivity %>%
     ggplot() +
     geom_col(mapping = aes(x = date, y = count, fill = group), width = 1) +
-    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
     labs(
       x = "Date",
       y = paste0("Number of level 1 regions - ", dataset_details$level_1_region),
@@ -513,7 +513,7 @@ if (!is.na(dataset_details$level_2_region) && length(unique(level_2_data$tested_
   level_2_positivity %>%
     ggplot() +
     geom_col(mapping = aes(x = date, y = count, fill = group), width = 1) +
-    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
     labs(
       x = "Date",
       y = paste0("Number of level 2 regions - ", dataset_details$level_2_region),
@@ -561,7 +561,7 @@ if (length(unique(national_data$tested_new))>1 && !is.na(unique(national_data$te
     mutate(type = if_else(type == "test", "test positivity", type)) %>%
     ggplot(aes(x = date, y = accel, colour = type)) +
     geom_line() +
-    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
+    scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
     # scale_y_continuous(trans = modulus_trans(-0.5), labels=label_percent()) +
     scale_y_continuous(labels = label_percent()) +
     geom_hline(yintercept = 0, size = 0.2) +

@@ -210,7 +210,7 @@ narrowed_regional_incidence %>%
       ),
     name = "Region"
   ) +
-  scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b") +
+  scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
   theme_ridges() +
   theme(legend.position = "none") +
   labs(
@@ -258,7 +258,7 @@ lt_county_data %>%
       ),
     name = "Region"
   ) +
-  scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b") +
+  scale_x_date(date_breaks = "3 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
   theme_ridges() +
   theme(legend.position = "none") +
   labs(
@@ -314,7 +314,7 @@ lt_national_data %>%
   mutate(type = if_else(type == "test", "test positivity", type)) %>%
   ggplot(aes(x = date, y = accel, colour = type)) +
   geom_line() +
-  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", date_labels = "%b %y") +
   # scale_y_continuous(trans = modulus_trans(-0.5), labels=label_percent()) +
   scale_y_continuous(labels = label_percent()) +
   geom_hline(yintercept = 0, size = 0.2) +
