@@ -23,9 +23,9 @@ render_graphs = function(country) {
 
 # Filter out
 # - USA & UK because the naming breaks, we add them in later
-# - Netherlands because it's currently (late January 2022) broken
+# - Vietnam because it's currently (early February 2022) broken
 countries <- countries %>%
-  filter(!class %in% c("USA", "UK") ) #, "Netherlands"
+  filter(!class %in% c("USA", "UK", "Vietnam") )
 
 start_using_memoise()
 
